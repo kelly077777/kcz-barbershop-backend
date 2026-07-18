@@ -6,9 +6,9 @@ services:
     container_name: kcz-db
     restart: unless-stopped
     environment:
-      POSTGRES_DB: kcz_barbershop
-      POSTGRES_USER: kcz_admin
-      POSTGRES_PASSWORD: Kcz2026@SecureDb47x
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - kcz_pgdata:/var/lib/postgresql/data
     ports:
@@ -23,9 +23,9 @@ services:
     depends_on:
       - kcz-db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://kcz-db:5432/kcz_barbershop
-      SPRING_DATASOURCE_USERNAME: kcz_admin
-      SPRING_DATASOURCE_PASSWORD: Kcz2026@SecureDb47x
+      SPRING_DATASOURCE_URL: jdbc:postgresql://kcz-db:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
     ports:
       - "8081:8081"
